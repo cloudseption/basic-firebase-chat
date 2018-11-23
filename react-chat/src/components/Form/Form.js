@@ -7,16 +7,17 @@ export default class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: 'Alex',
+            userName: '',
             message: '',
             list: [],
         };
-        this.messageRef = firebase.database().ref().child('messages');
-        this.listenMessages();
+        
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.user) {
-            this.setState({ 'userName': nextProps.user.displayName });
+            this.setState({ 'userName': nextProps.user.name });
+            this.messageRef = firebase.database().ref().child(this.concactIds(this.props.user.id, this.props.otherUserId));
+            this.listenMessages();
         }
     }
     handleChange(event) {
@@ -45,6 +46,18 @@ export default class Form extends Component {
                 });
             });
     }
+
+    concactIds(uid, otherid) {
+        let result = uid.localeCompare(otherid);
+        if (result == 0) {
+            return uid;
+        } else if (result == 1) {
+            return uid.concat(otherid);
+        } else {
+            return otherid.concat(uid);
+        }
+    }
+
     render() {
         return (
             <div className="form">

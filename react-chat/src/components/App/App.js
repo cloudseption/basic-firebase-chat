@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import logo from '../../images/logo.svg';
 import './App.css';
-import Form from '../Form/Form.js'
+import Form from '../Form/Form.js';
 import firebase from 'firebase';
 import firebaseConfig from '../../config';
+import MessengerList from '../MessengerList/messengerList.js';
+import Appbar from '../App_bar/app_bar.js';
+
 
 firebase.initializeApp(firebaseConfig);
 class App extends Component {
@@ -11,12 +13,19 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
+      otherUserId: '',
+      contacts: [
+        {id: '22',
+         name: 'name'}
+      ]
     }
   }
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user });
     });
+
+    //get contacts
   }
   handleSignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -29,10 +38,6 @@ class App extends Component {
     return (
       <div className="app">
         <div className="app__header">
-          <img src={logo} className="app__logo" alt="logo" />
-          <h2>
-            SIMPLE APP WITH REACT
-          </h2>
           {!this.state.user ? (
             <button
               className="app__button"
@@ -49,11 +54,20 @@ class App extends Component {
             </button>
             )}
         </div>
+        <Appbar />
+        <MessengerList contacts={this.state.contacts} getOtherUserId={this.getOtherUserId} />    
         <div className="app__list">
-          <Form user={this.state.user} />
+            <Form user={this.state.user} otherUserId={this.state.otherUserId} />
         </div>
       </div>
     );
+  }
+
+  getOtherUserId = (uid) => {
+    this.setState({
+      otherUser : uid
+    })
+    console.log(uid);
   }
 }
 export default App;
