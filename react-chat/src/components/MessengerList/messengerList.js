@@ -7,11 +7,15 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
     root: {
       width: '25%',
-      maxWidth: 360,
-      position: 'relative',
-      overflow: 'auto',
-      maxHeight: 500,
+      marginRight: 20,
+      padding: 0,
+      float: 'left',
     },
+
+    list: {
+        maxHeight: 500,
+        overflow: 'auto'
+    }
 
 });
 
@@ -20,13 +24,16 @@ class MessengerList extends Component {
     render() {
         const { classes } = this.props;
         return (
-          <Paper className={classes.root}>
-          <List>
+          <div className={classes.root}>
+          <Paper>
+          <List className={classes.list}>
             {this.props.contacts.map(contact => (
-                <Contact key={contact.id} id={contact.id} name={contact.name} getOtherUserId={this.props.getOtherUserId}/>
+                <Contact key={contact._id} id={contact.userId} name={contact.name} 
+                 picture={contact.picture} getOtherUserId={this.props.getOtherUserId}/>
             ))}
           </List>
           </Paper>
+          </div>
         );
     }
 }

@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import firebaseConfig from '../../config';
 import MessengerList from '../MessengerList/messengerList.js';
 import Appbar from '../App_bar/app_bar.js';
-
+import axios from "axios";
 
 firebase.initializeApp(firebaseConfig);
 class App extends Component {
@@ -14,18 +14,25 @@ class App extends Component {
     this.state = {
       user: null,
       otherUserId: '',
-      contacts: [
-        {id: '22',
-         name: 'name'}
-      ]
+      contacts: []
     }
   }
   componentDidMount() {
+
+    axios
+      .get(
+        'http://polar-citadel-36387.herokuapp.com/api/users'
+      )
+      .then(response => {
+        this.setState({
+          contacts: response.data
+        });
+      });
+
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user });
-    });
+  });
 
-    //get contacts
   }
   handleSignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();

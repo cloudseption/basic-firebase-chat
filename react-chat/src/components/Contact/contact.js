@@ -14,9 +14,7 @@ class Contact extends Component {
         return(
             <ListItem>
                 <ListItemAvatar>
-                    <Avatar>
-                        <PortraitIcon />
-                    </Avatar>
+                    {this.checkPortait()}
                 </ListItemAvatar>
                 <ListItemText
                     primary = {this.props.name}
@@ -33,6 +31,21 @@ class Contact extends Component {
     handleButton = () => {
         console.log(this.props.id);
         this.props.getOtherUserId(this.props.id);
+    }
+
+    checkPortait = () => {
+        if (this.props.picture != null) {
+            return (
+                <Avatar src={this.props.picture}>
+                </Avatar>
+            );
+        } else {
+            return (
+                <Avatar>
+                    <PortraitIcon/>
+                </Avatar>
+            );
+        }
     }
 }
 
