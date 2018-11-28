@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './Form.css';
+import { 
+    sendMessage,
+    registerListener
+   } from '../Socket';
 import Message from '../Message/Message';
 import firebase from 'firebase';
 
@@ -14,22 +18,25 @@ export default class Form extends Component {
         
     }
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         if (nextProps.user) {
             this.setState({ 'userName': nextProps.user.name });
-            this.messageRef = firebase.database().ref().child(this.concactIds(this.props.user.id, this.props.otherUserId));
-            this.listenMessages();
         }
+        this.listenMessages();
     }
     handleChange(event) {
         this.setState({ message: event.target.value });
+        this.listenMessages();
     }
     handleSend() {
+        console.log('Sending message');
         if (this.state.message) {
             var newItem = {
                 userName: this.state.userName,
                 message: this.state.message,
             }
-            this.messageRef.push(newItem);
+            sendMessage(newItem);
+            // this.messageRef.push(newItem);
             this.setState({ message: '' });
         }
     }
@@ -38,13 +45,12 @@ export default class Form extends Component {
         this.handleSend();
     }
     listenMessages() {
-        this.messageRef
-            .limitToLast(10)
-            .on('value', message => {
-                this.setState({
-                    list: Object.values(message.val()),
-                });
+        console.log('listening for messages');
+        registerListener(message => {
+            this.setState({
+                list: message,
             });
+        });
     }
 
     concactIds(uid, otherid) {

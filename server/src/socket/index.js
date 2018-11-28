@@ -30,14 +30,29 @@ async function onConnect(socket) {
         let convoId     = concactIds(selfId, partnerId);
 
         messageRef = firebase.database().ref().child(convoId);
-        messageRef.limitToLast(10).on('value', message => {
-            socket.emit('updateMessageList', message);
+
+        messageRef.limitToLast(10).on('value', messages => {
+            try {
+                socket.emit('updateMessageList', Object.values(messages.val()));
+            } catch (err) {
+                log.trace(`Error converting values`);
+                socket.emit('updateMessageList', []);
+            }
         });
     });
 
 
-    
-    socket.on('userSendMessage', () => {});
+
+    socket.on('sendMessage', (messageItem) => {
+        try {
+            messageItem.userName = socket.badgeBookUserDetails.name
+                                 ? socket.badgeBookUserDetails.name
+                                 : socket.badgeBookUserDetails.email;
+            messageRef.push(messageItem);
+        } catch (err) {
+            log.error(err);
+        }
+    });
 
 
 
