@@ -13,7 +13,7 @@ const path          = require('path');
 const express       = require('express');
 const http          = require('http');
 const socketIo      = require('socket.io');
-const socketFuncs   = require('./socket/index');
+const socketConn    = require('./socket/index');
 
 // ============================
 // REQUIREMENTS
@@ -27,6 +27,6 @@ const ioServer      = socketIo(httpServer);
 app.use('/', express.static(path.resolve(`${__dirname}/../../react-chat/build`)));
 
 // Socket Setup
-ioServer.on('connection', socketFuncs.connect);
+ioServer.on('connection', socketConn);
 
 httpServer.listen(PORT, () => { log.info(`Listening on port ${PORT}`) })

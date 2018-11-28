@@ -19,7 +19,7 @@
  */
 function createBadgeBookTokenHandler() {
     // Set these
-    const CLIENT_PUBLIC_KEY     = `vRWxJBZtKeoW4NxJb8kLkzIEFDxgk5QAxdPaBGwT4Vo`;
+    const CLIENT_PUBLIC_KEY     = `MY2arrn_llSwkPJUdtLQR-ZkPMJDoeztnwBOV-jPf5E`;
     const BADGEBOOK_TOKEN_URL   = `https://polar-citadel-36387.herokuapp.com/auth/token.html`;
     const TOKEN_COOKIE_NAME     = `authorization`;
     
