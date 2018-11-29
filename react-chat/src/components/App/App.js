@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import { subscribeToTimer } from '../Socket';
+import { 
+  selectConversationPartner
+ } from '../Socket';
 import Form from '../Form/Form.js';
 import firebase from 'firebase';
 import firebaseConfig from '../../config';
@@ -12,7 +14,6 @@ firebase.initializeApp(firebaseConfig);
 class App extends Component {
   constructor(props) {
     super(props);
-    subscribeToTimer();
     this.state = {
       user: null,
       otherUserId: '',
@@ -76,6 +77,7 @@ class App extends Component {
     this.setState({
       otherUser : uid
     })
+    selectConversationPartner(uid);
     console.log(uid);
   }
 }

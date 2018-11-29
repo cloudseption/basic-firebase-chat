@@ -1,9 +1,27 @@
 import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:8080');
+let socket = openSocket();
 
-function subscribeToTimer(cb) {
-  socket.on('timer', timestamp => cb(null, timestamp));
-  socket.emit('subscribeToTimer', 1000);
+let newMessageCallback = () => {};
+
+function selectConversationPartner(userId) {
+  socket.emit('onSelectConversation', { userId: userId });
 }
 
-export { subscribeToTimer };
+function sendMessage(message) {
+  socket.emit('sendMessage', message);
+}
+
+socket.on('updateMessageList', data => {
+  console.log('messages received', data);
+  newMessageCallback(data);
+})
+
+function registerListener(callback) {
+  newMessageCallback = callback;
+}
+
+export {
+  selectConversationPartner,
+  sendMessage,
+  registerListener
+};
