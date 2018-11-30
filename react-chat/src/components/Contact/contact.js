@@ -34,16 +34,15 @@ class Contact extends Component {
     }
 
     checkPortait = () => {
-        if (this.props.picture != null) {
-            return (
-                <Avatar src={this.props.picture}>
+        if (this.props.picture == null || this.props.picture == "") {
+            return (               
+                <Avatar>
+                    <PortraitIcon/>
                 </Avatar>
             );
         } else {
             return (
-                <Avatar>
-                    <PortraitIcon/>
-                </Avatar>
+                <Avatar src={this.props.picture}/>
             );
         }
     }

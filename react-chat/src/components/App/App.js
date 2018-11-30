@@ -7,8 +7,11 @@ import Form from '../Form/Form.js';
 import firebase from 'firebase';
 import firebaseConfig from '../../config';
 import MessengerList from '../MessengerList/messengerList.js';
-import Appbar from '../App_bar/app_bar.js';
 import axios from "axios";
+import Toolbar from "../Toolbar/Toolbar";
+import Backdrop from "../BackDrop/Backdrop";
+import SideDrawer from "../SideDrawer/SideDrawer";
+import badgeBookTokenHandler from "./tokenHandler";
 
 firebase.initializeApp(firebaseConfig);
 class App extends Component {
@@ -32,39 +35,39 @@ class App extends Component {
         });
       });
 
-    firebase.auth().onAuthStateChanged(user => {
-      this.setState({ user });
-  });
+  }
+  
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return { sideDrawerOpen: !prevState.sideDrawerOpen };
+    })
+  };
 
+  backdropClickHandler = () => {
+    this.setState({ sideDrawerOpen: false });
   }
-  handleSignIn() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
-  }
-  handleLogOut() {
-    firebase.auth().signOut();
-  }
+
   render() {
+
+    if (
+      window.localStorage.userId == "" ||
+      window.localStorage.userId == undefined
+    ) {
+      badgeBookTokenHandler.loginWithBadgeBook();
+    }
+
+    let backdrop;
+
+    if (this.state.sideDrawerOpen) {
+      backdrop = <Backdrop click={this.backdropClickHandler} />;
+    }
+
     return (
       <div className="app">
         <div className="app__header">
-          {!this.state.user ? (
-            <button
-              className="app__button"
-              onClick={this.handleSignIn.bind(this)}
-            >
-              Sign in
-            </button>
-          ) : (
-              <button
-                className="app__button"
-                onClick={this.handleLogOut.bind(this)}
-              >
-                Logout
-            </button>
-            )}
+        <Toolbar signOut={this.signOut} drawerClickHandler={this.drawerToggleClickHandler} />
+        <SideDrawer signOut={this.signOut} show={this.state.sideDrawerOpen} />
         </div>
-        <Appbar />
         <MessengerList contacts={this.state.contacts} getOtherUserId={this.getOtherUserId} />    
         <div className="app__list">
             <Form user={this.state.user} otherUserId={this.state.otherUserId} />

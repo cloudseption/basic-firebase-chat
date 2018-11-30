@@ -5,7 +5,6 @@ import {
     registerListener
    } from '../Socket';
 import Message from '../Message/Message';
-import firebase from 'firebase';
 
 export default class Form extends Component {
     constructor(props) {
