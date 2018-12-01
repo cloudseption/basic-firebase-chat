@@ -84,7 +84,7 @@ function createBadgeBookTokenHandler() {
         let token;
         try {
             let cookies = document.cookie;
-            tokenStr    = TOKEN_REGEX.exec(cookies);
+            let tokenStr = TOKEN_REGEX.exec(cookies);
             token       = tokenStr ? tokenStr[0].split(`${TOKEN_COOKIE_NAME}=`)[1] : '';
         } catch (err) {
             console.log('error parsing token', err);
