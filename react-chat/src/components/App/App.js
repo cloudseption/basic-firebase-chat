@@ -23,8 +23,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-
-    console.log(window.location.search);
+    let queriedUser = this.getQueriedUserId();
 
     axios
       .get(
@@ -34,8 +33,22 @@ class App extends Component {
         this.setState({
           contacts: response.data
         });
+        return response;
+      })
+      .then(response => {
+        try {
+          if (!queriedUser) {
+            return;
+          }
+  
+          const matchingUser = response.data.find(user => user.userId.match(queriedUser));
+          if (matchingUser) {
+            this.getOtherUserId(queriedUser)
+          }
+        } catch (err) {
+          console.log(err);
+        }
       });
-
   }
   
   drawerToggleClickHandler = () => {
@@ -76,6 +89,15 @@ class App extends Component {
     })
     selectConversationPartner(uid);
     console.log(uid);
+  }
+
+  getQueriedUserId = () => {
+    try {
+      let url           = new URL(window.location);
+      return url.searchParams.get('chat-with').trim();
+    } catch (err) {
+      return null;
+    }
   }
 }
 export default App;
