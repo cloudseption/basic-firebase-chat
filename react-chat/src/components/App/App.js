@@ -71,13 +71,17 @@ class App extends Component {
 
     return (
       <div className="app">
-        <div className="app__header">
-        <Toolbar signOut={this.signOut} drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer signOut={this.signOut} show={this.state.sideDrawerOpen} />
+        <div className="app__header row">
+          <Toolbar signOut={this.signOut} drawerClickHandler={this.drawerToggleClickHandler} />
+          <SideDrawer signOut={this.signOut} show={this.state.sideDrawerOpen} />
         </div>
-        <MessengerList contacts={this.state.contacts} getOtherUserId={this.getOtherUserId} />    
-        <div className="app__list">
-            <Form user={this.state.user} otherUserId={this.state.otherUserId} />
+        <div className="row">
+          <div className="col-4">
+            <MessengerList contacts={this.state.contacts} getOtherUserId={this.getOtherUserId} />    
+          </div>
+          <div className="col-8">
+              <Form user={this.state.user} otherUserId={this.state.otherUserId} />
+          </div>
         </div>
       </div>
     );
