@@ -76,10 +76,10 @@ class App extends Component {
           <SideDrawer signOut={this.signOut} show={this.state.sideDrawerOpen} />
         </div>
         <div className="row">
-          <div className="col-4 cozy">
+          <div className="col-6 col-sm-5 col-md-4 col-lg-3 cozy">
             <MessengerList contacts={this.state.contacts} getOtherUserId={this.getOtherUserId} />    
           </div>
-          <div className="col-8 cozy">
+          <div className="col-6 col-sm-7 col-md-8 col-lg-9 cozy">
               <Form user={this.state.user} otherUserId={this.state.otherUserId} />
           </div>
         </div>
