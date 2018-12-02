@@ -49,13 +49,6 @@ class App extends Component {
 
   render() {
 
-    if (
-      window.localStorage.userId == "" ||
-      window.localStorage.userId == undefined
-    ) {
-      badgeBookTokenHandler.loginWithBadgeBook();
-    }
-
     let backdrop;
 
     if (this.state.sideDrawerOpen) {

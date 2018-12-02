@@ -51,6 +51,8 @@ function createBadgeBookTokenHandler() {
 
         // Example:
         // window.sessionStorage.deleteItem('badgebook-user-id', claims.userId);
+        clearAccessToken();
+        loginWithBadgeBook();
     }
 
 
