@@ -2,9 +2,14 @@
   text-align: center;
   max-height: 100vh;
   min-height: 100vh;
-  max-width: 100vh;
-  min-width: 100vh;
-  padding-right: 2em;
+  width: 100%;
+  padding-right: 1em;
+}
+
+div.cozy {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .app__logo {
