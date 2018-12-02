@@ -11,7 +11,6 @@ import axios from "axios";
 import Toolbar from "../Toolbar/Toolbar";
 import Backdrop from "../BackDrop/Backdrop";
 import SideDrawer from "../SideDrawer/SideDrawer";
-import badgeBookTokenHandler from "./tokenHandler";
 
 firebase.initializeApp(firebaseConfig);
 class App extends Component {
@@ -24,6 +23,8 @@ class App extends Component {
     }
   }
   componentDidMount() {
+
+    console.log(window.location.search);
 
     axios
       .get(
