@@ -91,6 +91,11 @@ class App extends Component {
     console.log(uid);
   }
 
+  signOut = () => {
+    window.badgeBookTokenHandler.clearAccessToken();
+    window.location = `https://polar-citadel-36387.herokuapp.com/auth/login.html`;
+  }
+
   getQueriedUserId = () => {
     try {
       let url           = new URL(window.location);

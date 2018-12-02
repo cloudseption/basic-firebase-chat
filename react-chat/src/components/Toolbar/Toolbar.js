@@ -15,7 +15,7 @@ const toolbar = props => (
       <div className="toolbar-navigation-items">
         <ul>
           <li>
-            <a href={"https://polar-citadel-36387.herokuapp.com/profile/" + window.localStorage.getItem("userId")}>
+            <a href={"https://polar-citadel-36387.herokuapp.com/profile/" + window.sessionStorage.getItem("userId")}>
               Profile
             </a>
           </li>
@@ -26,8 +26,8 @@ const toolbar = props => (
             <a href="https://polar-citadel-36387.herokuapp.com/home">Landing Page</a>
           </li>
           {
-            ( window.localStorage.userId == "" ||
-              window.localStorage.userId == undefined ) ?
+            ( window.sessionStorage.getItem("userId") == "" ||
+              window.sessionStorage.getItem("userId") == undefined ) ?
             <li><a href="https://polar-citadel-36387.herokuapp.com/auth/login.html">Login</a></li> :
             <li><a className="logout" onClick={props.signOut} href="#">Log out</a></li>
           }
