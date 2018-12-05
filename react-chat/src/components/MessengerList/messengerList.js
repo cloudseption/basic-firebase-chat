@@ -6,15 +6,20 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
     root: {
-      width: '25%',
-      marginRight: 20,
-      padding: 0,
-      float: 'left',
+        width: '100%',
+        maxHeight: '100vh',
+        minHeight: '100%',
+        marginRight: 20,
+        padding: 0,
+        float: 'left',
     },
 
     list: {
-        maxHeight: 500,
-        overflow: 'auto'
+        marginTop: '-2.5em',
+        paddingTop: '4em',
+        maxHeight: '100vh',
+        overflowX: 'hidden',
+        overflowY: 'scroll'
     }
 
 });

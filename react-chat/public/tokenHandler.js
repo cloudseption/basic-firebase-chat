@@ -39,7 +39,7 @@ function createBadgeBookTokenHandler() {
         console.log(`User has a valid token`);
 
         // Example:
-        // window.sessionStorage.setItem('badgebook-user-id', claims.userId);
+        window.sessionStorage.setItem('userId', claims.userId);
     }
 
 
@@ -194,3 +194,4 @@ function createBadgeBookTokenHandler() {
 
 // Provides a hook for user to access the script's API.
 const badgeBookTokenHandler = createBadgeBookTokenHandler();
+window.badgeBookTokenHandler = badgeBookTokenHandler;
